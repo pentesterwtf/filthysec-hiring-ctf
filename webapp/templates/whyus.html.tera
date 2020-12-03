@@ -1,0 +1,28 @@
+{% extends "base" %}
+
+{% block content %}
+
+
+
+        <h1>Welcome to FilthySec</h1>
+        <h2>The #1 Cybersecurity Provider</h2>
+        <p>We deliver innovative and effective cyber and IT security solutions for some of Australia's largest and most well-known organisations.</p>
+
+<h2>Why FilthySec</h2>
+FilthySec is Australias #1 Cybersecurity provider, serving clients that include:
+
+<ul>
+<li>Foreign Governments</li>
+<li>NCC-1701 class industries</li>
+<li>Smart Infrastructure</li>
+</ul>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">Become a client today, no credit card required</p>
+    <a href="/newclient" class="btn btn-primary">Join us</a>
+  </div>
+</div>
+
+{% endblock content %}

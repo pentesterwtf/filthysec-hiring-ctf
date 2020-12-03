@@ -1,0 +1,55 @@
+{% extends "base" %}
+
+{% block content %}
+
+<h1 class="display-1">Testimonials</h1>
+
+<p class="lead">
+At FilthySec we work hard to provide our customers with the best security products and services available. Below are a range of testimonials of customers that have enjoyed our managed services (Gizmo Maintenance).
+</p>
+
+<br />
+
+
+
+<h3><s>REDACTED</s></h3>
+<blockquote class="blockquote">
+<p>
+For us, it was about bang for the buck with a lot of other providers out there.
+FilthySec provided the best solution for us.
+
+
+</p>
+<i>John, Asutrian Selective Security Operators</i>
+</blockquote>
+
+
+
+
+<h3>FilthySec</h3>
+<blockquote class="blockquote">
+<p>
+In this day and age, we can't take network security for granted. FilthySec have been relying on FilthySec for protection since 2020. As our network has changed and grown they have always had the best solution for us. Of all the vendors I deal with they easily stand out from the crowd as the best in terms of price, price and price.
+</p>
+<i>FilthySec CEO</i>
+</blockquote>
+
+<h3>BetaMax Smart Cities</h3>
+<blockquote class="blockquote">
+<p>
+The best thing about FilthySec Security Services is that not only provides a Gizmo but it also provides all the additional security services, one of the many reasons that we've been dealing with FilthySec for the last 0 years is to enable us to take our security platform I think to another level.
+</p>
+<i>Bob, BetaMax</i>
+</blockquote>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">Become a client today, no credit card required</p>
+    <a href="/newclient" class="btn btn-primary">Join us</a>
+  </div>
+</div>
+
+
+
+{% endblock content %}

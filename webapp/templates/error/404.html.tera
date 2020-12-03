@@ -1,0 +1,17 @@
+{% extends "base" %}
+
+{% block content %}
+
+
+The page at {{ path }} does not exist. :(
+
+<marquee>Super handy debug information</marquee>
+
+<table>
+<tr><td>Client IP</td><td>{{ ip | safe}}</td></tr>
+<tr><td>User Agent</td><td>{{ useragent | safe}}</td></tr>
+<tr><td>Host</td><td>{{ host | safe}}</td></tr>
+<tr><td>Cookie</td><td>{{ cookie }}</td></tr>
+</table>
+
+{% endblock content %}

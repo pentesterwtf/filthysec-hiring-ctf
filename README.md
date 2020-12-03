@@ -2,10 +2,29 @@
 
 ![Filthy Security](filthysec-logo.png?raw=true)
 
-## What
+## Admin
 
 * A hiring challenge for new employees.
+* A little scenario
+* Multiple steps involved, multiple linked apps
+* Built to see if people can:
+  * a: Do "hacking"
+  * b: Think of adjacent systems (i.e. signs of lateral movement)
+* This parent repo isn't designed for the applicant to see
+* The application ends up seeing most things under `app*`
+## Scenario
 
+* We're Russian/Chinese/Whatever APT
+* We are sick of Australia and it's Kangaroos
+* We want to take out the places that run their critical infrastructure
+
+
+We're doing this by taking on the big security companies in Australia, starting with FilthySec. FilthySec, according to their website is:
+
+* The #1 Cybersecurity Provider
+* "We deliver innovative and effective cyber and IT security solutions for some of Australia's largest and most well-known organisations."
+
+Let's cause some issues and break in, and see what we can do.
 
 ### Goals
 
@@ -17,3 +36,70 @@
   * Make this easy to observe, and easy to grade
   * No silly tricks that means someone needs to sit there for hours to remember how to do a padding oracle attack
   * Can be spun up quickly
+
+
+
+#### webapp
+
+* Silly webapp, written in Rust
+* Not meant to be too hard
+* Some XSS
+  * This isn't meant to be exciting or hard
+  * If they fuck up here, do not hire them
+* Links to an admin portal
+
+##### /newclient-confirm
+
+* Little registration page for new customers
+  * XSS in two out of three fields
+  * The email field gets client side validated, but can be bypassed
+  * The budget drop down has xss
+  * The description field does not have XSS, because that's too easy
+* We just want to see them open dev tools or talk their way through it
+* Ask about exploitation of this
+
+* Second bug is the 'back' button
+  * Notice it's an open redirect
+
+##### /goto/<URL>
+
+* Redirect only on our own site
+* Referenced in the newclient-confirm page
+* Probably not exploitable, see what they do with it, if they try to treat it like an open redirect first
+
+
+##### 404 handler
+
+* bunch of weird info disclosed, says "debug"
+* Headers reflected
+* 'XSS', but probably not the fun exploitable kind (i.e. XSS in User-Agent field)
+* See if they comment on the client IP bit, comments about X-FORWARDED-FOR / X-Real-IP, etc
+  * Bonus points - X-Real-IP is what this rustlang framework actually relies on :)
+
+
+##### /joinus
+
+* Not implemented, intentionally
+* Will 404
+* See `404 handler`
+
+### TODO - Things to implement
+
+* a .git folder being reachable from the webapp
+  * Make it fake, but let's see if anyone notices
+* Some XSS
+* Some hardcoded secrets
+* Some hardcoded signing keys or something
+
+
+* Some silly shit which asks for a email address before giving you a PDF
+* A utility that screenshots a website for you (SSRF)
+  * But it doesn't allow localhost/bunch of common ones
+  * Lets see what they try to bypass
+* a report generation service which has SSRF (Generates a PDF)
+  * This thing generates a bullshit report for a client name / TLS findings / whatever
+* An API that lets you do super privileged stuff, but only from localhost
+  * Chain the SSRF, or set X-FORWARDED-FOR
+* an exposed `swagger` like interface to show the API calls you can make
+* have a couple unprivileged ones
+* unsigned JWT, you can log in to a demo thing with `demo:demo` and change the assertion to say you're an admin or something

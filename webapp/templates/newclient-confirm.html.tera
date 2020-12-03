@@ -1,0 +1,28 @@
+{% extends "base" %}
+
+{% block content %}
+
+    <br /><br />
+    <center><img src="/static/logo.png" width=200px/></center>
+    <br /><br />
+
+<div class="card">
+  <div class="card-body">
+<h1>New Client Registration - Confirmation</h1>
+    <h4>Email</h4>
+    <p> {{ email | safe }}</p>
+    <h4>Operating Budget</h4>
+    <p>{{ budget | safe }}</p>
+    <h4>How we can help</h4>
+    <p>{{ why }}</p>
+
+  <br>
+  <p>Is this correct?</p>
+  <a href="/">Yes</a> | <a href="/goto/newclient">No</a>
+  </div>
+</div>
+
+
+
+
+{% endblock content %}
