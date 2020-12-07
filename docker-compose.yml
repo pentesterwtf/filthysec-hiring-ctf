@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  webapp:
+    build: ./webapp
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    environment:
+      CARGO_MANIFEST_DIR: "/usr/src/myapp/"
