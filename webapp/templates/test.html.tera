@@ -1,6 +1,0 @@
-{% extends "base" %}
-
-{% block content %}
-    <h1>Hi {{name | safe}}</h1>
-    <p>Try going to <a href="/hello/YourName">/hello/YourName</a></p>
-{% endblock content %}
