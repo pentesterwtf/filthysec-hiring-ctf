@@ -1,0 +1,114 @@
+{% extends "base" %}
+
+{% block content %}
+
+
+
+
+<h1 class="display-1">Join Us</h1>
+{% if message %}
+    <h3>{{ message }}</h3>
+{% endif %}
+
+<p class="lead">
+At FilthySec we work hard to provide our customers with the best security products and services available. <br />
+
+Everyone's voice matters here.  We aren’t looking for passengers, we’re looking for those interested in an opportunity to develop their skills and experience in information security and make a real difference. 
+<br />
+<br />
+In short, to work here, you need to give a s*** - after all, it could be your data you're protecting.
+</p>
+
+<br />
+
+
+
+<h3>Principal Technical Specialist (Penetration Tester)</h3>
+<blockquote class="blockquote">
+<p>
+Please note, due to client requirements, it is mandatory you hold a security clearance or be willing / eligible to obtain a BASELINE clearance (this includes being an Australian citizen)
+</p>
+</blockquote>
+
+
+<h4>The role</h4>
+Typical penetration testing engagements at FilthySec include:
+<ul>
+<li>Internal Network Penetration Test / Vulnerability Assessments</li>
+<li>External Recon / Network Penetration Test / Vulnerability Assessments</li>
+<li>Web Application Security Assessment / Vulnerability Assessments</li>
+<li>iOS and Android Mobile Application Security Assessment / Vulnerability Assessments</li>
+<li>Thick Client Security Assessment / Vulnerability Assessments</li>
+<li>Wireless Network Penetration Test / Vulnerability Assessments</li>
+<li>Device Security Assessment / Vulnerability Assessments</li>
+<li>Hardware Security Assessment / Vulnerability Assessments</li>
+<li>Server Configuration Review / Vulnerability Assessments</li>
+<li>Source Code Review / Vulnerability Assessments</li>
+<li>Red Team / Vulnerability Assessments</li>
+<li>Physical Security / Vulnerability Assessments</li>
+<li>Technical Report Writing of Vulnerability Assessments</li>
+</ul>
+
+<h4>About you</h4>
+<ul>
+<li>Persistence is your second nature. You are painstakingly persistent, and perhaps often called names</li>
+<li>You think you're failing in life when you are no longer learning anything new and / or improving and / or challenged.</li>
+<li>You can perform industry standard testing with little to no supervision</li>
+<li>You are always looking for the best and most efficient way to do everything in life. You are a 'hacker' in every part of life, but also a professional consultant</li>
+<li>You enjoy healthy competition but also really appreciate working in a team.</li>
+<li>You have an unhealthy hatred of technology.</li>
+<li>You are very serious about your work, and take much pride in everything you produce.</li>
+<li>You know you are not perfect</li>
+</ul>
+
+
+
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Apply now</h5>
+    <p class="card-text">If the above sounds good, let us know by sending us your resume.</p>
+<form action="/joinus" method="post" accept-charset="utf-8">
+  <div class="form-group">
+    <label for="email_address">Email address</label>
+    <input type="email" class="form-control" id="email_address"  placeholder="you@domain.com" name="email_address">
+  </div>
+  <div class="input-group mb-3">
+  <div class="resume">
+    <input type="file" class="resume-input" id="resumeFile" name="resume">
+    <label class="resume-label" for="resumeFile">Choose file</label>
+  </div>
+  <input type="hidden" id="resume_bytes" name="resume_bytes">
+</div>
+
+<script>
+var input = document.querySelector('input[type=file]');
+input.onchange = function () {
+  var file = input.files[0],
+    reader = new FileReader();
+
+  reader.onloadend = function () {
+    var b64 = reader.result.replace(/^data:.+;base64,/, '');
+    console.log(b64);
+    var s = document.querySelector('input[type=hidden]');
+    s.value = b64;
+  };
+
+  reader.readAsDataURL(file);
+};
+
+</script>
+      
+ <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+{% endblock content %}

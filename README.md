@@ -61,6 +61,14 @@ Let's cause some issues and break in, and see what we can do.
 * Second bug is the 'back' button
   * Notice it's an open redirect
 
+##### newclient/<email>
+
+* No XSS in the email parameter
+  * It's just a parameter so hopefully they have a look at that
+* Technically the pages before this don't matter
+  * Curious if they make that assertion, if they're tracking flow, etc  
+
+
 ##### /goto/<URL>
 
 * Redirect only on our own site
@@ -79,9 +87,16 @@ Let's cause some issues and break in, and see what we can do.
 
 ##### /joinus
 
-* Not implemented, intentionally
-* Will 404
-* See `404 handler`
+* File upload and some basic parsing
+  * Not checking filetype that gets uploaded
+  * Weird javascript that converts file to base64, then pumps into form
+  * Denial of service for upstream if file is too large
+* Will dump file to location
+  * Hint is the debug string that comes back
+  * Can get it to pump out to different locations
+  * expected poc - something like a filename of "../static/whatever"
+  * Won't give you RCE, but will let you dump stuff
+  * Caveat, might give you RCE if you knew how the backend worked / tera, but not an expected outcome
 
 ### TODO - Things to implement
 

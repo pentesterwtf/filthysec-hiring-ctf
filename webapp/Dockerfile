@@ -11,5 +11,6 @@ FROM debian:buster-slim
 COPY --from=builder /usr/local/cargo/bin/webapp /usr/local/bin/webapp
 COPY --from=builder /usr/src/myapp/static /usr/src/myapp/static/
 COPY --from=builder /usr/src/myapp/templates /usr/src/myapp/templates/
+COPY --from=builder /usr/src/myapp/uploads /usr/src/myapp/uploads/
 WORKDIR /usr/src/myapp
 ENTRYPOINT ["webapp"]

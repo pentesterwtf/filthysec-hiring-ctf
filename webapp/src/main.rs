@@ -2,28 +2,24 @@
 
 #[macro_use]
 extern crate rocket;
+extern crate base64;
 
 use rocket::request::{Form, FormDataError, FormError};
 use rocket::response::Redirect;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use std::collections::HashMap;
+use std::fs::File;
+use std::io::prelude::*;
+use std::path::Path;
 
 use rocket::Request;
 
-/*
-#[derive(serde::Serialize)]
-struct TemplateContext {
-    name: String,
-    items: Vec<&'static str>,
-}
-*/
-
-#[get("/hello/<name>")]
-fn get(name: String) -> Template {
+#[get("/newclient/<email>")]
+fn newclient_create(email: String) -> Template {
     let mut context = HashMap::new();
-    context.insert("name", &name);
-    Template::render("test", &context)
+    context.insert("email", &email);
+    Template::render("newclient-createlogin", &context)
 }
 
 #[get("/goto/<url>")]
@@ -31,16 +27,101 @@ fn goto(url: String) -> Redirect {
     return Redirect::found(format!("/{}", url));
 }
 
+// Used for createaccount page
+#[derive(Debug, FromForm)]
+struct FormInputResume {
+    email_address: String,
+    resume: String,
+    resume_bytes: String,
+}
+
+#[post("/joinus", data = "<sink>")]
+fn submitresume(sink: Result<Form<FormInputResume>, FormError<'_>>) -> Template {
+    match sink {
+        Ok(form) => {
+            // Values seem ok - Let's do our logic bits
+
+            let mut context = HashMap::new();
+            context.insert("email", form.email_address.to_string());
+            context.insert("filename", form.resume.to_string());
+            let x = format!(".//uploads//{}", form.resume);
+            let path = Path::new(&x);
+            let display = path.display();
+            context.insert("debug", format!("{}", display));
+
+            let bytes = base64::decode(form.resume_bytes.to_string()).unwrap();
+
+            let mut file = match File::create(&path) {
+                Err(why) => panic!("couldn't create {}: {}", display, why),
+                Ok(file) => file,
+            };
+
+            match file.write_all(bytes.as_slice()) {
+                Err(why) => panic!("couldn't write to {}: {}", display, why),
+                Ok(_) => println!("successfully wrote to {}", display),
+            }
+
+            Template::render("joinus-confirmed", &context)
+        }
+        Err(FormDataError::Io(_)) => {
+            let mut context = HashMap::new();
+            context.insert("message", "Error in handling input, please try again");
+            Template::render("joinus", &context)
+        }
+        Err(FormDataError::Malformed(f)) | Err(FormDataError::Parse(_, f)) => {
+            let mut context = HashMap::new();
+            println!("{}", f);
+            context.insert("message", "Error in handling input, please try again");
+            Template::render("joinus", &context)
+        }
+    }
+}
+
+// Used for createaccount page
+#[derive(Debug, FromForm)]
+struct FormInputNewAccount {
+    email_address: String,
+    password: String,
+}
+
+#[post("/createaccount", data = "<sink>")]
+fn createaccount(sink: Result<Form<FormInputNewAccount>, FormError<'_>>) -> Template {
+    match sink {
+        Ok(form) => {
+            // Values seem ok - Let's do our logic bits
+
+            // TODO - Create a valid login
+            // Have bad logic around username validation
+            //
+            let mut context = HashMap::new();
+            context.insert("email", form.email_address.to_string());
+            context.insert("why", form.password.to_string());
+            Template::render("newclient-createlogin", &context)
+        }
+        Err(FormDataError::Io(_)) => {
+            let mut context = HashMap::new();
+            context.insert("message", "Error in handling input, please try again");
+            Template::render("newclient-createlogin", &context)
+        }
+        Err(FormDataError::Malformed(f)) | Err(FormDataError::Parse(_, f)) => {
+            let mut context = HashMap::new();
+            println!("{}", f);
+            context.insert("message", "Error in handling input, please try again");
+            Template::render("newclient-createlogin", &context)
+        }
+    }
+}
+
 // Used for our newclient page
 #[derive(Debug, FromForm)]
-struct FormInput {
+struct FormInputNewclient {
     budget_size: String,
     email_address: String,
     budget_spiel: String,
 }
 
 #[post("/newclient-confirm", data = "<sink>")]
-fn newclient_confirm(sink: Result<Form<FormInput>, FormError<'_>>) -> Template {
+fn newclient_confirm(sink: Result<Form<FormInputNewclient>, FormError<'_>>) -> Template {
     match sink {
         Ok(form) => {
             let mut context = HashMap::new();
@@ -75,12 +156,15 @@ fn rocket() -> rocket::Rocket {
             "/",
             routes![
                 index,
-                get,
                 testimonials,
                 newclient_confirm,
                 whyus,
                 newclient,
-                goto
+                newclient_create,
+                createaccount,
+                goto,
+                joinus,
+                submitresume
             ],
         )
         .mount(
@@ -115,6 +199,15 @@ fn not_found(req: &Request<'_>) -> Template {
     map.insert("cookie", host);
 
     Template::render("error/404", &map)
+}
+
+// The careers page
+// I.e. Content copied from other websites
+#[get("/joinus")]
+fn joinus() -> Template {
+    let mut context = HashMap::new();
+    context.insert("", "");
+    Template::render("joinus", &context)
 }
 
 // The testimonials page

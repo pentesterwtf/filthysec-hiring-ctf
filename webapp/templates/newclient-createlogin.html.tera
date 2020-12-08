@@ -1,0 +1,26 @@
+{% extends "base" %}
+
+{% block content %}
+    <h1>Hi {{email}}</h1>
+    <h2>Next step</h2>
+    <p> Please set a password for your new account </p>
+
+{% if message %}
+    <h3>{{ message }}</h3>
+{% endif %}
+
+<form action="/createaccount" method="post" accept-charset="utf-8">
+  <div class="form-group">
+    <label for="email_address">Email address</label>
+    <input type="email" class="form-control" id="email_address"  readonly placeholder="{{email}}" name="email_address" value="{{email}}">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+  </div>
+      
+ <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  </div>
+</div>
+{% endblock content %}
