@@ -15,6 +15,9 @@ services:
       - "3000"
     #ports:
     #  - "3000:3000"
+    environment:
+      SSH_USER: root
+      SSH_PASS: OUYTF78tfyufo78u6ref
   nginx:
     image: nginx
     expose:
