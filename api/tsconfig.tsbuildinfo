@@ -1674,8 +1674,8 @@
         "signature": "b1d3d08c5aabf0b77fdaf545e74390aae00d5bfabc580d9852310c9f5ed173b8"
       },
       "./src/controllers/filthysec.controller.ts": {
-        "version": "f68fb0218ce715d5c251cded20975797831983b79bfc8bbbefcebe25f2e21fa6",
-        "signature": "2a4be0b90ed5b7a2d6f5c89dc6c13c3571cdb51b71ba677f81ed3045f71664df"
+        "version": "5e082abec2c1f1b250bb5abd8bbe6cb23e85eb7f793a01163584fc7dca5fc592",
+        "signature": "ee9887d1c677aacdfdc4bc2a6579e1bc18218c9ea25bb5755ccf09cb027c8bcd"
       },
       "./src/controllers/ping.controller.ts": {
         "version": "345e766a5a8233c79f1c11b09cfcd1b635bc462ace7ae1ce6b84b3fd8078384d",
@@ -3595,7 +3595,9 @@
       "./src/controllers/filthysec.controller.ts": [
         "./node_modules/@loopback/rest/index.d.ts",
         "./node_modules/@loopback/context/dist/index.d.ts",
-        "./node_modules/node-html-to-image/types/index.d.ts"
+        "./node_modules/node-html-to-image/types/index.d.ts",
+        "./node_modules/@types/node/child_process.d.ts",
+        "./node_modules/@types/node/util.d.ts"
       ],
       "./src/controllers/ping.controller.ts": [
         "./node_modules/@loopback/rest/index.d.ts",

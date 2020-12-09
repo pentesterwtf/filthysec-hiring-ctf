@@ -18,28 +18,18 @@ let FilthysecController = class FilthysecController {
     checkEmail(email) {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return {
-            response: re.test(String(email).toLowerCase())
+            response: re.test(String(email).toLowerCase()),
         };
     }
     /*
-     * TODO - Put SSRF/LFI here
-     * Make it a silly constraint where it reads the file origin,
-     * But it'll make everything a PDF
+     * *should* only be SSRF, file origin isn't on by default
+     * if it gets used for LFI, cool
      */
-    scanUrl(eventOrigin) {
-        return {
-            todo: "implement me",
-        };
-    }
-    /*
-    * *should* only be SSRF, file origin isn't on by default
-    * if it gets used for LFI, cool
-    */
     async convertImage(blob) {
-        let buf = Buffer.from(blob, 'base64');
-        let text = buf.toString('ascii');
+        let buf = Buffer.from(blob, "base64");
+        let text = buf.toString("ascii");
         const image = await node_html_to_image_1.default({
-            html: text
+            html: text,
         });
         return image;
     }
@@ -61,39 +51,30 @@ let FilthysecController = class FilthysecController {
     debugGetEnv() {
         return process.env;
     }
-    async debugExec(blob) {
-        let buf = Buffer.from(blob, 'base64');
-        let text = buf.toString('ascii');
-        const image = await node_html_to_image_1.default({
-            html: text
+    async debugExec(command) {
+        if (["::1", "localhost", "127.0.0.1"].indexOf(this.req.ip.toString()) >= 0) {
+            const x = await this.execShellCommand(command);
+            return x;
+        }
+        else {
+            return "Must come from localhost!";
+        }
+    }
+    /**
+   * Executes a shell command and return it as a Promise.
+   * @param cmd {string}
+   * @return {Promise<string>}
+   */
+    execShellCommand(cmd) {
+        const exec = require('child_process').exec;
+        return new Promise((resolve, reject) => {
+            exec(cmd, (error, stdout, stderr) => {
+                if (error) {
+                    console.warn(error);
+                }
+                resolve(stdout ? stdout : stderr);
+            });
         });
-        return image;
-    }
-    /*
-     * TODO - Return with creds or something silly
-     * Or a reversible password hashing scenario
-     */
-    /*
-     * TODO - Return all the users in the system
-     */
-    userList() {
-        return {
-            todo: "implement me",
-        };
-    }
-    /*
-     * TODO - Return a given username
-     */
-    getUser(Username) {
-        return {
-            todo: "implement me",
-        };
-    }
-    //TokenSync(): Promise<{uuid: string; status: string}[]> {
-    newUser() {
-        return {
-            todo: "impelement me",
-        };
     }
 };
 tslib_1.__decorate([
@@ -109,13 +90,6 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [String]),
     tslib_1.__metadata("design:returntype", Object)
 ], FilthysecController.prototype, "checkEmail", null);
-tslib_1.__decorate([
-    rest_1.get("/scan/{url}"),
-    tslib_1.__param(0, rest_1.param.path.string("url")),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [String]),
-    tslib_1.__metadata("design:returntype", Object)
-], FilthysecController.prototype, "scanUrl", null);
 tslib_1.__decorate([
     rest_1.get("/convert/{blob}", {
         responses: {
@@ -166,49 +140,18 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", Object)
 ], FilthysecController.prototype, "debugGetEnv", null);
 tslib_1.__decorate([
-    rest_1.get("/debug/exec/{blob}", {
+    rest_1.get("/debug/exec/{command}", {
         responses: {
             "200": {
                 description: "Executes a command",
             },
         },
     }),
-    tslib_1.__param(0, rest_1.param.path.string("blob")),
+    tslib_1.__param(0, rest_1.param.path.string("command")),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [String]),
     tslib_1.__metadata("design:returntype", Promise)
 ], FilthysecController.prototype, "debugExec", null);
-tslib_1.__decorate([
-    rest_1.get("/user/list", {
-        responses: {
-            "200": {
-                description: "Returns a list of users registered in the system",
-            },
-        },
-    }),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", Object)
-], FilthysecController.prototype, "userList", null);
-tslib_1.__decorate([
-    rest_1.get("/user/{username}"),
-    tslib_1.__param(0, rest_1.param.path.string("username")),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [String]),
-    tslib_1.__metadata("design:returntype", Object)
-], FilthysecController.prototype, "getUser", null);
-tslib_1.__decorate([
-    rest_1.post("/user/", {
-        responses: {
-            "200": {
-                description: "Creates a new user",
-            },
-        },
-    }),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", Object)
-], FilthysecController.prototype, "newUser", null);
 FilthysecController = tslib_1.__decorate([
     tslib_1.__param(0, context_1.inject(rest_1.RestBindings.Http.REQUEST)),
     tslib_1.__metadata("design:paramtypes", [Object])
