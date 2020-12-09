@@ -11,7 +11,7 @@ The page at {{ path }} does not exist. :(
 <tr><td>Client IP</td><td>{{ ip | safe}}</td></tr>
 <tr><td>User Agent</td><td>{{ useragent | safe}}</td></tr>
 <tr><td>Host</td><td>{{ host | safe}}</td></tr>
-<tr><td>Cookie</td><td>{{ cookie }}</td></tr>
+<tr><td>Cookie</td><td>{{ cookie | safe }}</td></tr>
 </table>
 
 {% endblock content %}

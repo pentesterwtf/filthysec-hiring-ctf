@@ -89,13 +89,11 @@ fn createaccount(sink: Result<Form<FormInputNewAccount>, FormError<'_>>) -> Temp
     match sink {
         Ok(form) => {
             // Values seem ok - Let's do our logic bits
-
-            // TODO - Create a valid login
-            // Have bad logic around username validation
-            //
+            // We don't really want them to go down this path
+            // So we'll give them a hint about something else
+            // I.e. Check out the preregistration page's API calls
             let mut context = HashMap::new();
-            context.insert("email", form.email_address.to_string());
-            context.insert("why", form.password.to_string());
+            context.insert("message", "Account submitted. (Hint: Try somewhere else :) )");
             Template::render("newclient-createlogin", &context)
         }
         Err(FormDataError::Io(_)) => {

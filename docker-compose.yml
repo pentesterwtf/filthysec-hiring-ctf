@@ -4,16 +4,17 @@ services:
     build: ./webapp
     expose:
       - "8000"
-    ports:
-      - "8000:8000"
+    #ports:
+    #  - "8000:8000"
     environment:
       CARGO_MANIFEST_DIR: "/usr/src/myapp/"
   api:
     build: ./api
+    privileged: true
     expose:
       - "3000"
-    ports:
-      - "3000:3000"
+    #ports:
+    #  - "3000:3000"
   nginx:
     image: nginx
     expose:

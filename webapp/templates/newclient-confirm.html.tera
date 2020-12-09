@@ -17,12 +17,27 @@
     <p>{{ why }}</p>
 
   <br>
+
+  <h4>Anti Spam Details</h4>
+  <p id="jsonResp">Valid email: </p>
   <p>Is this correct?</p>
   <a href="/newclient/{{email}}">Yes</a> | <a href="/goto/newclient">No</a>
   </div>
 </div>
 
+<script>
+var opts = {
+  method: 'GET',      
+  headers: {}
+};
+fetch('/api/checkemail/{{email}}', opts).then(function (response) {
+  return response.json();
+})
+.then(function (r) {
 
+document.getElementById("jsonResp").innerText = "Valid email: " + r.response;
+});
+</script>
 
 
 {% endblock content %}

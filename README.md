@@ -44,8 +44,9 @@ Let's cause some issues and break in, and see what we can do.
 * If they do this part wrong, don't hire
 * Second app is the `/api`, which lets you do slightly more complex things
   * They're meant to get here from the first app when they try to register
-  * TODO - Make this link *super* obvious
-
+* Both apps sit behind nginx
+* The point is to see a pre-auth hint to `/api`, with exposed API docs, then fiddle with the `convert` and `exec` functions to bypass a filter
+* Given how junior these people are, I want to see them do recon and their thoughts about a system, rather than cool exploitation
 
 #### webapp
 
