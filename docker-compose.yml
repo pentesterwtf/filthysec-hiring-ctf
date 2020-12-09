@@ -8,3 +8,20 @@ services:
       - "8000:8000"
     environment:
       CARGO_MANIFEST_DIR: "/usr/src/myapp/"
+  api:
+    build: ./api
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+  nginx:
+    image: nginx
+    expose:
+      - "80"
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx:/etc/nginx/
+    links:
+      - webapp
+      - api

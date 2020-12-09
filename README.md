@@ -37,6 +37,14 @@ Let's cause some issues and break in, and see what we can do.
   * No silly tricks that means someone needs to sit there for hours to remember how to do a padding oracle attack
   * Can be spun up quickly
 
+### Intended Path
+
+* You can get RCE
+* The first webapp is to figure out if they can use devtools / it's got minimal complexity
+* If they do this part wrong, don't hire
+* Second app is the `/api`, which lets you do slightly more complex things
+  * They're meant to get here from the first app when they try to register
+  * TODO - Make this link *super* obvious
 
 
 #### webapp
