@@ -11,21 +11,7 @@
   * a: Do "hacking"
   * b: Think of adjacent systems (i.e. signs of lateral movement)
 * This parent repo isn't designed for the applicant to see
-* The application ends up seeing most things under `app*`
-## Scenario
-
-* We're Russian/Chinese/Whatever APT
-* We are sick of Australia and it's Kangaroos
-* We want to take out the places that run their critical infrastructure
-
-
-We're doing this by taking on the big security companies in Australia, starting with FilthySec. FilthySec, according to their website is:
-
-* The #1 Cybersecurity Provider
-* "We deliver innovative and effective cyber and IT security solutions for some of Australia's largest and most well-known organisations."
-
-Let's cause some issues and break in, and see what we can do.
-
+* The application ends up seeing most things under `webapp` and `api`
 ### Goals
 
 * Assessment

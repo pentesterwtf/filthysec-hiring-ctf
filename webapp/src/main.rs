@@ -93,7 +93,7 @@ fn createaccount(sink: Result<Form<FormInputNewAccount>, FormError<'_>>) -> Temp
             // So we'll give them a hint about something else
             // I.e. Check out the preregistration page's API calls
             let mut context = HashMap::new();
-            context.insert("message", "Account submitted. (Hint: Try somewhere else :) )");
+            context.insert("email", "Account submitted. (Hint: Try somewhere else :) )");
             Template::render("newclient-createlogin", &context)
         }
         Err(FormDataError::Io(_)) => {

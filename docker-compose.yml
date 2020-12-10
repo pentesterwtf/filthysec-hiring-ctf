@@ -17,7 +17,7 @@ services:
     #  - "3000:3000"
     environment:
       SSH_USER: root
-      SSH_PASS: OUYTF78tfyufo78u6ref
+      SSH_PASS: OTfyufo78u6ref2354
   nginx:
     image: nginx
     expose:
