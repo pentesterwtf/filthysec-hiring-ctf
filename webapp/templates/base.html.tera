@@ -29,7 +29,7 @@
         </div>
       </header>
       <main role="main" class="inner cover">
-      <!--- Our website is made with the *finest* hand-crafted, artisanal HTML that money can buy. Please enjoy looking at our W3C compliant website -->
+      <!--- Our website is made with the *finest* hand-crafted, artisanal HTML that mone y can buy. Please enjoy looking at our W3C compliant website -->
           {% block content %}{% endblock content %}
       </main>
       <footer class="page-footer mt-auto">

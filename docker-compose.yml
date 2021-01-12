@@ -4,8 +4,6 @@ services:
     build: ./webapp
     expose:
       - "8000"
-    #ports:
-    #  - "8000:8000"
     environment:
       CARGO_MANIFEST_DIR: "/usr/src/myapp/"
   api:
@@ -13,17 +11,15 @@ services:
     privileged: true
     expose:
       - "3000"
-    #ports:
-    #  - "3000:3000"
     environment:
       SSH_USER: root
-      SSH_PASS: OTfyufo78u6ref2354
+      SSH_PASS: OTfyufo78u6ref2354aaa
   nginx:
     image: nginx
     expose:
       - "80"
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./nginx:/etc/nginx/
     links:
