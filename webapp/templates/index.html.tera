@@ -1,0 +1,16 @@
+{% extends "base" %}
+
+{% block content %}
+
+    <br /><br />
+    <center><img src="/static/logo.png" /></center>
+    <br /><br />
+
+<div class="card">
+  <div class="card-body">
+    <a href="/whyus" class="btn btn-primary">Learn more</a>
+  </div>
+</div>
+
+
+{% endblock content %}

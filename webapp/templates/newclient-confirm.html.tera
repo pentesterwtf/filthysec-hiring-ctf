@@ -1,0 +1,43 @@
+{% extends "base" %}
+
+{% block content %}
+
+    <br /><br />
+    <center><img src="/static/logo.png" width=200px/></center>
+    <br /><br />
+
+<div class="card">
+  <div class="card-body">
+<h1>New Client Registration - Confirmation</h1>
+    <h4>Email</h4>
+    <p> {{ email | safe }}</p>
+    <h4>Operating Budget</h4>
+    <p>{{ budget | safe }}</p>
+    <h4>How we can help</h4>
+    <p>{{ why }}</p>
+
+  <br>
+
+  <h4>Anti Spam Details</h4>
+  <p id="jsonResp">Valid email: </p>
+  <p>Is this correct?</p>
+  <a href="/newclient/{{email}}">Yes</a> | <a href="/goto/newclient">No</a>
+  </div>
+</div>
+
+<script>
+var opts = {
+  method: 'GET',      
+  headers: {}
+};
+fetch('/api/checkemail/{{email}}', opts).then(function (response) {
+  return response.json();
+})
+.then(function (r) {
+
+document.getElementById("jsonResp").innerText = "Valid email: " + r.response;
+});
+</script>
+
+
+{% endblock content %}

@@ -1,0 +1,27 @@
+version: "3.3"
+services:
+  webapp:
+    build: ./webapp
+    expose:
+      - "8000"
+    environment:
+      CARGO_MANIFEST_DIR: "/usr/src/myapp/"
+  api:
+    build: ./api
+    privileged: true
+    expose:
+      - "3000"
+    environment:
+      SSH_USER: root
+      SSH_PASS: OTfyufo78u6ref2354aaa
+  nginx:
+    image: nginx
+    expose:
+      - "80"
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/
+    links:
+      - webapp
+      - api

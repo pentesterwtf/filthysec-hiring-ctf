@@ -1,0 +1,35 @@
+{% extends "base" %}
+
+{% block content %}
+
+<h1 class="display-1">Application Received</h1>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">It's done!</h5>
+    <p class="card-text">Congratulations on your application. We'll talk shortly</p>
+<form action="/joinus" method="post" accept-charset="utf-8" enc="multipart/form-data">
+  <div class="form-group">
+    <label for="email_address">Email address</label>
+    <input type="email" class="form-control" id="email_address" readonly value="{{email}}" name="email_address">
+    <label for="resume">Resume</label>
+    <input type="text" class="form-control" id="resume" readonly value="{{filename}}" name="resume">
+    {% if debug %}
+    <!--- {{ debug }} --->
+{% endif %}
+  </div>
+
+</div>
+
+</form>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+{% endblock content %}

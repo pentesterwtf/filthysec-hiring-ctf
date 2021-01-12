@@ -1,0 +1,49 @@
+{% extends "base" %}
+
+{% block content %}
+
+    <br /><br />
+    <center><img src="/static/logo.png" width=200px/></center>
+    <br /><br />
+
+<div class="card">
+  <div class="card-body">
+<h1>New Client Registration</h1>
+{% if message %}
+    <h3>{{ message }}</h3>
+{% endif %}
+<p>Congratulations on making the best Cyber solution purchasing decision of your career</p>
+<p>Before we can start billing, we require the folowing details</p>
+
+<form action="/newclient-confirm" method="post" accept-charset="utf-8">
+  <div class="form-group">
+    <label for="email_address">Email address</label>
+    <input type="email" class="form-control" id="email_address" placeholder="ciso@undefunded.gov.au" name="email_address">
+  </div>
+  <div class="form-group">
+    <label for="budget_size">How large is your organisations security budget?</label>
+    <select multiple class="form-control" id="budget_size" name="budget_size">
+      <option>1-10 Million / Year</option>
+      <option>10 Million / Year +</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="budget_spiel">Please describe how we can help you spend your budget</label>
+    <textarea class="form-control" id="budget_spiel"  name="budget_spiel" rows="3"></textarea>
+  </div>
+      
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="pleasespamme"  disabled checked>
+  <label class="form-check-label" for="pleasespamme">
+    Please call me immediately about ways to increase my budget
+  </label>
+</div>
+ <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  </div>
+</div>
+
+
+
+
+{% endblock content %}
