@@ -2,6 +2,13 @@
 
 ![Filthy Security](filthysec-logo.png?raw=true)
 
+## Meta
+
+* This is an old Hiring CTF built
+* It's outlived its usefulness
+* It's now made public, mostly as it's no longer needing to be hidden
+* Written in rust, poorly
+
 ## Admin
 
 * A hiring challenge for new employees.
